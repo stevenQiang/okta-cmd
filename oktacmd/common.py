@@ -23,4 +23,4 @@ def request_session(session, url, method, **kwargs):
   result = getattr(session, method)(url, **kwargs)
   if result.status_code >= 400:
     raise requests.HTTPError(json.dumps(result.json()))
-  return result.json()
+  return result

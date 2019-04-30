@@ -4,14 +4,14 @@ from common import *
 
 @click.group()
 @click.pass_context
-def cli(ctx):
+def main_cli(ctx):
   if ctx.invoked_subcommand != 'init':
     okta = Okta()
     config_data = get_config()
     okta.init(config_data['url'], config_data['token'])
     ctx.obj = okta
     
-@cli.command()
+@main_cli.command()
 @click.option('--url', required=True)
 @click.option('--token', required=True)
 @click.pass_obj
@@ -19,34 +19,32 @@ def init(ctx, url, token):
   set_config({'url': url, 'token': token})
   print('done.')
 
-@cli.command()
+@main_cli.command()
 @click.pass_obj
 def user_list(okta):
   print(okta.user_list())
 
-@cli.command()
+@main_cli.command()
 @click.pass_obj
 def group_list(okta):
   print(okta.group_list())
 
-@cli.command()
+@main_cli.command()
 @click.option('--name', required=True)
 @click.pass_obj
 def add_group(okta, name):
   print(okta.add_group(name))
 
-@cli.command()
-@click.option('--file')
-@click.option('--group')
+@main_cli.command()
+@click.option('--file', required=True)
+@click.option('--group', required=True)
 @click.pass_obj
 def add_user_list_to_group(okta, file, group):
   okta.add_user_list_to_group(file, group)
 
-@cli.command()
-@click.option('--group')
-@click.option('--othergroup')
+@main_cli.command()
+@click.option('--group', required=True)
+@click.option('--othergroup', required=True)
 @click.pass_obj
 def copy_group_to_other(okta, group, othergroup):
   okta.copy_group_to_other(group, othergroup)
-
-cli()

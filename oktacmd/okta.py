@@ -1,4 +1,4 @@
-import requests, json, os
+import requests, json
 from common import *
 
 class Okta(object):
@@ -25,14 +25,14 @@ class Okta(object):
   def user_list(self):
     users = {}
     result = request_session(self.session, self.url+"/users", 'get')
-    for user in result:
+    for user in result.json():
       users[user['profile']['email']] = {'id': user['id']}
     return users
 
   def group_list(self):
     groups = {}
     result = request_session(self.session, self.url+"/groups", 'get')
-    for group in result:
+    for group in result.json():
       groups[group['profile']['name']] = {'id': group['id']}
     return groups
   
@@ -57,7 +57,7 @@ class Okta(object):
   def add_user_list_to_group(self, fileName, groupName):
     groupList = self.group_list()
     if not groupList.get(groupName):
-      raise "没有找到组名"
+      raise "not find group name"
     groupId = groupList[groupName]['id']
     userList = self.user_list()
     emailNotFind = []
@@ -73,15 +73,15 @@ class Okta(object):
             self.add_user_to_group(userList[email]['id'], groupId)
             success += 1
           except Exception as e:
-            errors.append(email)
+            raise Exception("error: {0}, result: {1}".format(email, e))
     print("success: {0}, emailNotFind: {1}, errors: {2}".format(success, emailNotFind, errors))
 
   def copy_group_to_other(self, groupName, otherGroupName):
     groupList = self.group_list()
     if not groupList.get(groupName):
-      raise "{0}没有找到".format(groupName)
+      raise "{0} not find".format(groupName)
     if not groupList.get(otherGroupName):
-      raise "{0}没有找到".format(otherGroupName)
+      raise "{0} not find".format(otherGroupName)
     r = self.session.get(self.url+"/groups/"+groupList[groupName]['id']+"/users")
     success = 0
     errors = []

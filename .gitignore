@@ -1,1 +1,3 @@
 __pycache__/
+dist/
+okta_cmd.egg-info/
