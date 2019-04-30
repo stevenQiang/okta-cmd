@@ -1,5 +1,5 @@
 import requests, json
-from common import *
+from .common import *
 
 class Okta(object):
   

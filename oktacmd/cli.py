@@ -1,6 +1,6 @@
 import click
-from okta import Okta
-from common import *
+from .okta import Okta
+from .common import *
 
 @click.group()
 @click.pass_context
@@ -18,6 +18,11 @@ def main_cli(ctx):
 def init(ctx, url, token):
   set_config({'url': url, 'token': token})
   print('done.')
+
+@main_cli.command()
+@click.pass_obj
+def auth(ctx):
+  print('Steven Love Tina')
 
 @main_cli.command()
 @click.pass_obj

@@ -1,11 +1,22 @@
+import os
 from setuptools import setup, find_packages
+
+
+path = os.path.abspath(os.path.dirname(__file__))
+
+try:
+  with open(os.path.join(path, 'README.md')) as f:
+    long_description = f.read()
+except Exception as e:
+  long_description = "customize okta cli"
 
 setup(
     name = "okta-cmd",
-    version = "0.0.1",
+    version = "0.1.0",
     keywords = ("pip", "okta", "cli", "cmd", "steven"),
     description = "okta cli",
-    long_description = "cusmom okta cli",
+    long_description = long_description,
+    long_description_content_type='text/markdown',
     license = "MIT Licence",
 
     url = "https://github.com/stevenQiang/okta-cmd",
@@ -14,13 +25,13 @@ setup(
 
     packages = find_packages(),
     include_package_data = True,
-    install_requires = ["requests"],
+    install_requires = ["requests", "click"],
     platforms = "any",
 
     scripts = [],
     entry_points = {
         'console_scripts': [
-            'okta-cmd=oktacmd.main:main'
+            'okta-cmd=oktacmd:main_cli'
         ]
     }
 )
