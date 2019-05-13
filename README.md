@@ -20,10 +20,10 @@ $ okta-cmd group-list
 $ okta-cmd user-list
 ```
 #### Download user list file
-user-list command add three options.
---download: want download user list
---filename: file name, the default is okta_user.json
---filepath: file path, the default is ./
+user-list command add three options. 
+* --download: want download user list 
+* --filename: file name, the default is okta_user.json 
+* --filepath: file path, the default is ./ 
 
 ```bash
 $ okta-cmd user-list --download
