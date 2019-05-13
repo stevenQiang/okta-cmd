@@ -5,7 +5,7 @@ from .common import *
 @click.group()
 @click.pass_context
 def main_cli(ctx):
-  if ctx.invoked_subcommand != 'init':
+  if ctx.invoked_subcommand not in ['init', 'auth']:
     okta = Okta()
     config_data = get_config()
     okta.init(config_data['url'], config_data['token'])
@@ -25,9 +25,14 @@ def auth(ctx):
   print('Steven Love Tina')
 
 @main_cli.command()
+@click.option('--download', is_flag=True)
+@click.option('--filepath', default='./')
+@click.option('--filename', default='okta_user.json')
 @click.pass_obj
-def user_list(okta):
-  print(okta.user_list())
+def user_list(okta, download, filepath, filename):
+  res = okta.user_list(download, filepath, filename)
+  if not download:
+    print(res)
 
 @main_cli.command()
 @click.pass_obj

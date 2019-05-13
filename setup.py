@@ -17,6 +17,7 @@ setup(
     description = "okta cli",
     long_description = long_description,
     long_description_content_type='text/markdown',
+    python_requires=">=3.5.0",
     license = "MIT Licence",
 
     url = "https://github.com/stevenQiang/okta-cmd",

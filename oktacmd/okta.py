@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, os
 from .common import *
 
 class Okta(object):
@@ -22,11 +22,16 @@ class Okta(object):
       'Authorization': 'SSWS ' + self.apiToken,
     })
 
-  def user_list(self):
+  def user_list(self, download=False, filePath="./", fileName="okta_user.json"):
     users = {}
     result = request_session(self.session, self.url+"/users", 'get')
     for user in result.json():
       users[user['profile']['email']] = {'id': user['id']}
+    if download:
+      fullPath = os.path.join(filePath, fileName)
+      with open(fullPath, 'w+') as f:
+        json.dump(users, f)
+      print("Download success. path: {0}".format(fullPath))
     return users
 
   def group_list(self):
