@@ -27,7 +27,7 @@ def auth(ctx):
 @main_cli.command()
 @click.option('--download', is_flag=True)
 @click.option('--filepath', default='./')
-@click.option('--filename', default='okta_user.json')
+@click.option('--filename', default='okta_users.json')
 @click.pass_obj
 def user_list(okta, download, filepath, filename):
   res = okta.user_list(download, filepath, filename)
@@ -35,9 +35,14 @@ def user_list(okta, download, filepath, filename):
     print(res)
 
 @main_cli.command()
+@click.option('--download', is_flag=True)
+@click.option('--filepath', default='./')
+@click.option('--filename', default='okta_groups.json')
 @click.pass_obj
-def group_list(okta):
-  print(okta.group_list())
+def group_list(okta, download, filepath, filename):
+  res = okta.group_list(download, filepath, filename)
+  if not download:
+    print(res)
 
 @main_cli.command()
 @click.option('--name', required=True)

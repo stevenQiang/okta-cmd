@@ -12,7 +12,7 @@ except Exception as e:
 
 setup(
     name = "okta-cmd",
-    version = "0.1.0",
+    version = "0.1.1",
     keywords = ("pip", "okta", "cli", "cmd", "steven"),
     description = "okta cli",
     long_description = long_description,

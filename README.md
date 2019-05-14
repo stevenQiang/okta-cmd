@@ -3,7 +3,7 @@
 ### Introduction
 This is my usual Okta-cli, help me easy to operate okta, because okta ui is too slow..
 
-### Use
+### Basic Features
 ```bash
 $ pip install okta-cmd
 # init okta
@@ -19,20 +19,38 @@ $ okta-cmd group-list
 # user list
 $ okta-cmd user-list
 ```
+
+### Advanced Features
 #### Download user list file
 user-list command add three options. 
 * --download: want download user list 
-* --filename: file name, the default is okta_user.json 
+* --filename: file name, the default is okta_users.json 
 * --filepath: file path, the default is ./ 
 
 ```bash
 $ okta-cmd user-list --download
-Download success. path: ./okta_user.json
+Download success. path: ./okta_users.json
 $ okta-cmd user-list --download --filename=test.json
 Download success. path: ./test.json
 $ okta-cmd user-list --download --filename=test.json --filepath=./oktacmd
 Download success. path: ./oktacmd/test.json
 ```
+#### Download group list file
+group-list command add three options. 
+* --download: want download groups list 
+* --filename: file name, the default is okta_groups.json 
+* --filepath: file path, the default is ./ 
+
+```bash
+$ okta-cmd group-list --download
+Download success. path: ./okta_groups.json
+$ okta-cmd group-list --download --filename=test.json
+Download success. path: ./test.json
+$ okta-cmd group-list --download --filename=test.json --filepath=./oktacmd
+Download success. path: ./oktacmd/test.json
+```
+
+
 ### Features
 *  [x] add group
 *  [x] add user file to group
@@ -40,9 +58,9 @@ Download success. path: ./oktacmd/test.json
 *  [x] group list
 *  [x] user list
 *  [x] download user list file
+*  [x] download group list file
 
 ### TODO
-*  [ ] download group list file
 *  [ ] Delete matching users
 *  [ ] Delete matching groups
 

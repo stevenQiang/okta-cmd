@@ -22,7 +22,7 @@ class Okta(object):
       'Authorization': 'SSWS ' + self.apiToken,
     })
 
-  def user_list(self, download=False, filePath="./", fileName="okta_user.json"):
+  def user_list(self, download=False, filePath="./", fileName="okta_users.json"):
     users = {}
     result = request_session(self.session, self.url+"/users", 'get')
     for user in result.json():
@@ -34,11 +34,16 @@ class Okta(object):
       print("Download success. path: {0}".format(fullPath))
     return users
 
-  def group_list(self):
+  def group_list(self, download=False, filePath="./", fileName="okta_groups.json"):
     groups = {}
     result = request_session(self.session, self.url+"/groups", 'get')
     for group in result.json():
       groups[group['profile']['name']] = {'id': group['id']}
+    if download:
+      fullPath = os.path.join(filePath, fileName)
+      with open(fullPath, 'w+') as f:
+        json.dump(groups, f)
+      print("Download success. path: {0}".format(fullPath))
     return groups
   
   def add_group(self, name):
